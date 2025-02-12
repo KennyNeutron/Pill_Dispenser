@@ -27,6 +27,13 @@ DS3231 myRTC;
 #define LED4 25
 #define LED5 23
 
+#define PB1 19
+#define PB2 5
+
+bool PB_Toggle = false;
+bool PB_Function = false;
+int PB_Pressed = 0;
+
 
 byte year;
 byte month;
@@ -98,7 +105,6 @@ void setup() {
   digitalWrite(LED3, HIGH);
   digitalWrite(LED4, HIGH);
   digitalWrite(LED5, HIGH);
-  
 }
 
 void loop() {
@@ -124,10 +130,15 @@ void PillDispense() {
     Notify_4Hr = false;
     TellTime = false;
     while (!TellTime) {
-      if(Notify_6Hr || Notify_8Hr || Notify_12Hr || Notify_24Hr){
-        break;
+      if (Notify_6Hr || Notify_8Hr || Notify_12Hr || Notify_24Hr) {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        } else {
+          Reset_PB();
+        }
       }
-      Reset_PB();
     }
   }
 
@@ -139,11 +150,22 @@ void PillDispense() {
     digitalWrite(BuzzerPin, HIGH);
     Notify_6Hr = false;
     TellTime = false;
-    while(!TellTime){
-      if(Notify_8Hr || Notify_12Hr || Notify_24Hr){
-        break;
+    while (!TellTime) {
+      if (Notify_8Hr || Notify_12Hr || Notify_24Hr) {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        } else {
+          Reset_PB();
+        }
+      } else {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        }
       }
-      Reset_PB();
     }
   }
 
@@ -155,11 +177,22 @@ void PillDispense() {
     digitalWrite(BuzzerPin, HIGH);
     Notify_8Hr = false;
     TellTime = false;
-    while(!TellTime){
-      if(Notify_12Hr || Notify_24Hr){
-        break;
+    while (!TellTime) {
+      if (Notify_12Hr || Notify_24Hr) {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        } else {
+          Reset_PB();
+        }
+      }else {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        }
       }
-      Reset_PB();
     }
   }
 
@@ -171,6 +204,23 @@ void PillDispense() {
     digitalWrite(BuzzerPin, HIGH);
     Notify_12Hr = false;
     TellTime = false;
+    while (!TellTime) {
+      if (Notify_24Hr) {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        } else {
+          Reset_PB();
+        }
+      }else {
+        if (PushButton_GetStatus_PushButton2()) {
+          delay(100);
+          Serial.println("PB2 pressed");
+          break;
+        }
+      }
+    }
   }
 
   if (Notify_24Hr) {
@@ -217,7 +267,7 @@ bool get_Sched4Hr() {
 }
 
 bool get_Sched6Hr() {
-  if (myRTC.getHour(h12Flag, pmFlag) == 0 || myRTC.getHour(h12Flag, pmFlag) == 6 || myRTC.getHour(h12Flag, pmFlag) == 12 || myRTC.getHour(h12Flag, pmFlag) == 18) {
+  if (myRTC.getHour(h12Flag, pmFlag) == 6 || myRTC.getHour(h12Flag, pmFlag) == 12 || myRTC.getHour(h12Flag, pmFlag) == 18) {
     return true;
   } else {
     return false;

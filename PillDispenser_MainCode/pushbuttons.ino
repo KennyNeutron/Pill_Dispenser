@@ -1,10 +1,3 @@
-#define PB1 19
-#define PB2 5
-
-bool PB_Toggle = false;
-bool PB_Function = false;
-int PB_Pressed = 0;
-
 
 void PushButton_setup() {
   Serial.println("Push Button Initialize...");
