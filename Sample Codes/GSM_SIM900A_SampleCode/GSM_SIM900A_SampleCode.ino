@@ -5,7 +5,7 @@ HardwareSerial sim900(1);
 #define PWRKEY 4
 
 // Global variable for phone number with a default value
-String phoneNumber = "+639xxxxxxxxx";  // Set default recipient number
+String phoneNumber = "+639765624995";  // Set default recipient number
 
 void power_on_sim900() {
     pinMode(PWRKEY, OUTPUT);

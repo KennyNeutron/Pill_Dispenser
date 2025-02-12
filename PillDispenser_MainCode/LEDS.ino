@@ -1,8 +1,3 @@
-#define LED1 14
-#define LED2 27
-#define LED3 26
-#define LED4 25
-#define LED5 23
 
 
 void LEDS_setup(){
@@ -20,23 +15,31 @@ void LEDS_setup(){
   digitalWrite(LED5, HIGH);
 }
 
+void LEDS_SetStatus(int ThisLED, bool Status){
+  if (Status){
+    digitalWrite(ThisLED, LOW);
+  } else {
+    digitalWrite(ThisLED, HIGH);
+  }
+}
+
 
 
 
 void LEDS_test(){
   digitalWrite(LED1, LOW);
-  delay(300);
+  delay(100);
   digitalWrite(LED1, HIGH);
   digitalWrite(LED2, LOW);
-  delay(300);
+  delay(100);
   digitalWrite(LED2, HIGH);
   digitalWrite(LED3, LOW);
-  delay(300);
+  delay(100);
   digitalWrite(LED3, HIGH);
   digitalWrite(LED4, LOW);
-  delay(300);
+  delay(100);
   digitalWrite(LED4, HIGH);
   digitalWrite(LED5, LOW);
-  delay(300);
+  delay(100);
   digitalWrite(LED5, HIGH);
 }

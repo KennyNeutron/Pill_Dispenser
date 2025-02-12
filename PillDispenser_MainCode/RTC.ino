@@ -1,14 +1,4 @@
-byte year;
-byte month;
-byte date;
-byte dow;
-byte hour;
-byte minute;
-byte second;
 
-bool century = false;
-bool h12Flag;
-bool pmFlag;
 
 void DS3231_setTime(uint8_t bHour, uint8_t bMinute, uint8_t bSecond, uint8_t bMonth, uint8_t bDate, uint8_t bYear) {
   //SET DATE & TIME

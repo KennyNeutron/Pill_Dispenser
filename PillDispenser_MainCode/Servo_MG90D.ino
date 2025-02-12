@@ -10,7 +10,7 @@ const int REVERSE = 180;  // Full speed in the opposite direction
 
 int NeutralPulseWidth = 1500;
 int SpeedOffset = 100;
-int ServoSteps = 18;
+int ServoSteps = 19;
 
 void Servo_setup() {
   Serial.println("Servo Initialized...");
@@ -22,9 +22,34 @@ void Servo_setup() {
 
 void Servo_Move60() {
   myServo.write(FORWARD);
-  delay(73);
+
+  switch (CurrentCompartment) {
+    case 0:
+      delay(75);
+      break;
+    case 1:
+      delay(75);
+      break;
+    case 2:
+      delay(80);
+      break;
+    case 3:
+      delay(75);
+      break;
+    case 4:
+      delay(80);
+      break;
+    case 5:
+      delay(80);
+      break;
+    default:
+      delay(75);
+      break;
+  }
+
+
   myServo.write(STOP);
-  delay(ServoSteps);
+  delay(1000);
   Serial.println("Servo moved 60 degrees");
   CurrentCompartment++;
 
@@ -33,4 +58,11 @@ void Servo_Move60() {
   }
   Serial.print("Current Compartment: ");
   Serial.println(CurrentCompartment);
+}
+
+void Goto_Compartment(int ThisCompartment) {
+  while (CurrentCompartment != ThisCompartment) {
+    Servo_Move60();
+    delay(2000);
+  }
 }

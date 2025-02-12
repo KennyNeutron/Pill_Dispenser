@@ -26,6 +26,7 @@ void PushButton_loop() {
     delay(100);
     PB_Toggle = true;
     PB_Pressed = 2;
+    TellTime=true;
   }
 
   if (!PushButton_GetStatus_PushButton1() && !PushButton_GetStatus_PushButton2() && PB_Toggle) {
@@ -43,12 +44,7 @@ void PushButton_loop() {
     PB_Function = true;
   }
 
-  if (PB_Pressed == 2 && PB_Toggle && !PB_Function) {
-    delay(100);
-    Serial.println("PB2 pressed");
-    Goto_Compartment(0);
-    PB_Function = true;
-  }
+  Reset_PB();
 }
 
 bool PushButton_GetStatus_PushButton1() {
@@ -64,5 +60,22 @@ bool PushButton_GetStatus_PushButton2() {
     return true;
   } else {
     return false;
+  }
+}
+
+
+void Reset_PB(){
+    if (PB_Pressed == 2 && PB_Toggle && !PB_Function) {
+    delay(100);
+    Serial.println("PB2 pressed");
+
+    
+
+    Goto_Compartment(0);
+    PB_Function = true;
+    delay(1000);
+    //sendSMS("Pill Dispenser Reset to Default Compartment");
+    digitalWrite(BuzzerPin, LOW);
+    Notified=false;
   }
 }
