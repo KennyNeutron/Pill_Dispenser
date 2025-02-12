@@ -124,6 +124,9 @@ void PillDispense() {
     Notify_4Hr = false;
     TellTime = false;
     while (!TellTime) {
+      if(Notify_6Hr || Notify_8Hr || Notify_12Hr || Notify_24Hr){
+        break;
+      }
       Reset_PB();
     }
   }
@@ -136,6 +139,12 @@ void PillDispense() {
     digitalWrite(BuzzerPin, HIGH);
     Notify_6Hr = false;
     TellTime = false;
+    while(!TellTime){
+      if(Notify_8Hr || Notify_12Hr || Notify_24Hr){
+        break;
+      }
+      Reset_PB();
+    }
   }
 
   if (Notify_8Hr) {
@@ -146,6 +155,12 @@ void PillDispense() {
     digitalWrite(BuzzerPin, HIGH);
     Notify_8Hr = false;
     TellTime = false;
+    while(!TellTime){
+      if(Notify_12Hr || Notify_24Hr){
+        break;
+      }
+      Reset_PB();
+    }
   }
 
   if (Notify_12Hr) {

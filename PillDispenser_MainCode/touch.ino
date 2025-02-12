@@ -3,7 +3,7 @@ const int touchPins[] = { 4, 15, 12, 33, 32 };  // GPIO numbers for T0, T3, T5, 
 const char* touchPinNames[] = { "TPAD #1", "TPAD #2", "TPAD #3", "TPAD #4", "TPAD #5" };
 
 // Threshold value for touch detection
-const int threshold = 20;
+const int threshold = 10;
 
 // Array to store the previous touch states
 bool wasTouched[] = { false, false, false, false, false };
