@@ -13,6 +13,7 @@ int SpeedOffset = 100;
 int ServoSteps = 18;
 
 void Servo_setup() {
+  Serial.println("Servo Initialized...");
   myServo.attach(servoPin);
 
   myServo.write(STOP);

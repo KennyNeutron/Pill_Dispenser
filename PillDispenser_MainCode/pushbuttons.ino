@@ -1,5 +1,5 @@
-#define PB1 21
-#define PB2 22
+#define PB1 19
+#define PB2 5
 
 bool PB_Toggle = false;
 bool PB_Function = false;
@@ -7,9 +7,9 @@ int PB_Pressed = 0;
 
 
 void PushButton_setup() {
+  Serial.println("Push Button Initialize...");
   pinMode(PB1, INPUT_PULLUP);
   pinMode(PB2, INPUT_PULLUP);
-  Serial.println("Push Button Initialized");
 }
 
 

@@ -6,6 +6,7 @@
 
 
 void LEDS_setup(){
+  Serial.println("LEDS Initialize...");
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
   pinMode(LED3, OUTPUT);
