@@ -1,41 +1,42 @@
+#include <Wire.h>
+#include "RTClib.h"
+
+RTC_DS3231 rtc;
+
 #define BuzzerPin 13
-// Define touch-sensitive pins and their corresponding names
-const int touchPins[] = { 4, 15, 12, 33, 32 };  // GPIO numbers for T0, T3, T5, T8, T9
-const char* touchPinNames[] = { "TPAD #1", "TPAD #2", "TPAD #3", "TPAD #4", "TPAD #5" };
 
-// Threshold value for touch detection
-const int threshold = 20;
 
-// Array to store the previous touch states
-bool wasTouched[] = { false, false, false, false, false };
+
+
+
+
+int CurrentCompartment = 0;
 
 void setup() {
   Serial.begin(115200);
   delay(1000);  // Allow time to initialize Serial Monitor
-  Serial.println("ESP32 Touch Detection Initialized");
+  RTC_setup();
+  Touch_setup();
   PushButton_setup();
-  Serial.println("Push Button Initialized");
-
   LEDS_setup();
+  Servo_setup();
+
   pinMode(BuzzerPin, OUTPUT);
   digitalWrite(BuzzerPin, LOW);
+
+  RTC_PrintTime();
 }
 
 void loop() {
   PushButton_loop();
-  LEDS_loop();
-  for (int i = 0; i < 5; i++) {
-    int touchValue = touchRead(touchPins[i]);
-    bool isTouched = touchValue < threshold;
+  Touch_loop();
+}
 
-    // Check for a change in touch state
-    if (isTouched && !wasTouched[i]) {
-      Serial.print("Touch detected on ");
-      Serial.println(touchPinNames[i]);
-    }
 
-    // Update the previous touch state
-    wasTouched[i] = isTouched;
+void Goto_Compartment(int ThisCompartment) {
+  while (CurrentCompartment != ThisCompartment) {
+
+    Servo_Move60();
+    delay(1000);
   }
-  delay(100);  // Adjust the delay as needed
 }

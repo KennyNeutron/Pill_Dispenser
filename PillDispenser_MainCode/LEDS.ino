@@ -20,7 +20,9 @@ void LEDS_setup(){
 }
 
 
-void LEDS_loop(){
+
+
+void LEDS_test(){
   digitalWrite(LED1, LOW);
   delay(300);
   digitalWrite(LED1, HIGH);
